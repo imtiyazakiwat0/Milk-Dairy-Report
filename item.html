@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="item.css">
+    <link rel="stylesheet" href="navbar.css">
+    <title>Item Page</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Item Page</div>
+        <!-- <div class="app-name">Item Page</div> -->
+        <div class="menu" onclick="toggleNavbar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="item.html">Item</a></li>
+            <li><a href="milk-history.html">Milk History</a></li>
+            <li><a href="item-history.html">Item History</a></li>
+            <li><a href="account-history.html">Account History</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form id="itemForm">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" name="itemName" required>
+
+            <label for="rate">Rate:</label>
+            <input type="number" id="rate" name="rate" min="0" step="0.01" required>
+
+            <label for="itemDate">Date:</label>
+            <input type="date" id="itemDate" name="itemDate" required>
+
+            <label for="qty">Quantity:</label>
+            <input type="number" id="qty" name="qty" min="0" required>
+
+            <div class="submit-button-container">
+                <button type="button" onclick="submitItemForm()">Submit</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="item.js"></script>
+</body>
+</html>

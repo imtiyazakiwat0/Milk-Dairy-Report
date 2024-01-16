@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar.css">
+    <title>Milk Calculator</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Milk Calculator</div>
+        <!-- <div class="app-name">Milk Calculator</div> -->
+        <div class="menu" onclick="toggleNavbar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="item.html">Item</a></li>
+            <li><a href="milk-history.html">Milk History</a></li>
+            <li><a href="item-history.html">Item History</a></li>
+            <li><a href="account-history.html">Account History</a></li>
+            <li><a href="milkrate.html">Milk Rate</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <form id="milkForm">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Morning or Evening:</label>
+            <select id="time" name="time" required>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+            </select>
+
+            <label for="litres">Litres:</label>
+            <input type="number" id="litres" name="litres" min="0" required>
+
+            <!-- Add more checkboxes if needed -->
+
+            <div class="submit-button-container">
+                <button type="button" onclick="submitForm()">Submit</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

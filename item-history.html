@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item History</title>
+    <link rel="stylesheet" type="text/css" href="item-history.css">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Item Page</div>
+        <!-- <div class="app-name">Item Page</div> -->
+        <div class="menu" onclick="toggleNavbar()">
+            <img src="menu-burger.svg" alt="">
+        </div>
+    </header>
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="item.html">Item</a></li>
+            <li><a href="milk-history.html">Milk History</a></li>
+            <li><a href="item-history.html">Item History</a></li>
+            <li><a href="account-history.html">Account History</a></li>
+        </ul>
+    </nav>
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Rate</th>
+                <th>Date</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Item data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Populate the item history table when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemTable = document.getElementById('itemTable');
+            const tbody = itemTable.getElementsByTagName('tbody')[0];
+
+            // Get item history data from localStorage
+            const itemHistoryData = JSON.parse(localStorage.getItem('itemHistoryData')) || [];
+
+            // Populate table with data
+            itemHistoryData.forEach(item => {
+                const row = tbody.insertRow();
+                const nameCell = row.insertCell(0);
+                const rateCell = row.insertCell(1);
+                const dateCell = row.insertCell(2);
+                const qtyCell = row.insertCell(3);
+
+                nameCell.textContent = item.itemName;
+                rateCell.textContent = item.rate;
+                dateCell.textContent = item.itemDate;
+                qtyCell.textContent = item.qty;
+            });
+        });
+
+        function toggleNavbar() {
+    const navbar = document.getElementById('navbar');
+    navbar.style.display = (navbar.style.display === 'block') ? 'none' : 'block';
+}
+    </script>
+</body>
+</html>

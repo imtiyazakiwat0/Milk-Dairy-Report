@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account History</title>
+    <link rel="stylesheet" type="text/css" href="account-history.css">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<style>
+    /* account-history.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+img{
+    height: 35px;
+}
+
+#accountTable {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+#accountTable th, #accountTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#accountTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 18px;
+    }
+
+    #accountTable {
+        width: 100%;
+    }
+
+    #accountTable thead {
+        display: none;
+    }
+
+    #accountTable tbody td {
+        display: block;
+        text-align: center;
+    }
+
+    #accountTable tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+</style>
+<body>
+    <header>
+        <div class="logo">Account Page</div>
+        <div class="menu" onclick="toggleNavbar()">
+            <img src="menu-burger.svg" alt="">
+        </div>
+    </header>
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="item.html">Item</a></li>
+            <li><a href="milk-history.html">Milk History</a></li>
+            <li><a href="item-history.html">Item History</a></li>
+            <li><a href="account-history.html">Account History</a></li>
+        </ul>
+    </nav>
+    <h2>Account History</h2>
+    <table id="accountTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Morning Milk</th>
+                <th>Evening Milk</th>
+                <th>Item Name</th>
+                <th>Rate</th>
+                <th>Quantity</th>
+                <th>Balance</th> <!-- New column for balance -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Account data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Populate the account history table when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            populateAccountHistoryTable();
+        });
+    
+        function populateAccountHistoryTable() {
+    const accountTable = document.getElementById('accountTable');
+    const tbody = accountTable.getElementsByTagName('tbody')[0];
+
+    // Get milk and item history data from localStorage
+    const milkHistoryData = JSON.parse(localStorage.getItem('milkHistoryData')) || [];
+    const itemHistoryData = JSON.parse(localStorage.getItem('itemHistoryData')) || [];
+
+    // Create an object to group data by date
+    const groupedData = {};
+
+    // Group milk history data by date
+    milkHistoryData.reduce((acc, entry) => {
+        const date = entry.date;
+        if (!acc[date]) {
+            acc[date] = { date: date, morningMilk: '', eveningMilk: '', itemName: '', rate: '', qty: '' };
+        }
+        acc[date][entry.time.toLowerCase() + 'Milk'] = entry.litres;
+        return acc;
+    }, groupedData);
+
+    // Group item history data by date
+    itemHistoryData.forEach(data => {
+        const date = data.itemDate;
+        if (!groupedData[date]) {
+            groupedData[date] = { date: date, morningMilk: '', eveningMilk: '', itemName: '', rate: '', qty: '' };
+        }
+        groupedData[date].itemName = data.itemName;
+        groupedData[date].rate = data.rate;
+        groupedData[date].qty = data.qty;
+    });
+
+    // Convert the grouped data object to an array and sort by date
+    const accountHistoryData = Object.values(groupedData).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    let balance = 0;
+    
+
+    // Populate table with data
+    accountHistoryData.forEach(data => {
+                const row = tbody.insertRow();
+                const dateCell = row.insertCell(0);
+                const morningCell = row.insertCell(1);
+                const eveningCell = row.insertCell(2);
+                const nameCell = row.insertCell(3);
+                const rateCell = row.insertCell(4);
+                const qtyCell = row.insertCell(5);
+                const balanceCell = row.insertCell(6); // New cell for balance
+
+                dateCell.textContent = data.date;
+                morningCell.textContent = data.morningMilk || '';
+                eveningCell.textContent = data.eveningMilk || '';
+                nameCell.textContent = data.itemName || '';
+                rateCell.textContent = data.rate || '';
+                qtyCell.textContent = data.qty || '';
+
+                // Calculate balance
+const milkRate = Number(localStorage.getItem('milkRate')) || 50;
+const milkSold = Number(data.morningMilk || 0) + Number(data.eveningMilk || 0);
+const itemCost = Number(data.rate || 0) * Number(data.qty || 0);
+balance += milkSold * milkRate - itemCost;
+balanceCell.textContent = balance;
+            });
+}
+    
+        function toggleNavbar() {
+            const navbar = document.getElementById('navbar');
+            navbar.style.display = (navbar.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

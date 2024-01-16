@@ -1,0 +1,24 @@
+/* Add this to your existing styles.css or create a new one */
+
+/* ... Your existing styles ... */
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}

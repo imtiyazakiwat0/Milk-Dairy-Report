@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Milk Rate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .rate-display {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .password-input, .rate-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            color: #fff;
+            background-color: #333;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="rate-display">Current Milk Rate: <span id="rateDisplay">50</span></div>
+        <input type="password" id="passwordInput" class="password-input" placeholder="Enter password to change rate">
+        <input type="number" id="rateInput" class="rate-input" placeholder="Enter new rate">
+        <button onclick="changeRate()">Change Rate</button>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+        const password = 'srikant123';
+        const defaultRate = 50;
+        let currentRate = localStorage.getItem('milkRate') || defaultRate;
+
+        document.getElementById('rateDisplay').textContent = currentRate;
+
+        function changeRate() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const rateInput = document.getElementById('rateInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const rateDisplay = document.getElementById('rateDisplay');
+
+            if (passwordInput === password) {
+                currentRate = rateInput;
+                localStorage.setItem('milkRate', currentRate);
+                rateDisplay.textContent = currentRate;
+                errorMessage.textContent = '';
+            } else {
+                errorMessage.textContent = 'Incorrect password.';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+/* item-history.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+img{
+        height: 35px;
+    
+}
+#itemTable {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+#itemTable th, #itemTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#itemTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 18px;
+    }
+
+    #itemTable {
+        width: 100%;
+    }
+
+    #itemTable thead {
+        display: none;
+    }
+
+    #itemTable tbody td {
+        display: block;
+        text-align: center;
+    }
+
+    #itemTable tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
